@@ -5,6 +5,7 @@ import { useAppSelector } from '../hooks/redux';
 import { switchIcon } from '../utils/iconsSwitcher';
 import TextareaAutosize from 'react-textarea-autosize';
 import { minutsConverter } from '../utils/minutsConverter';
+import { EmptyBox } from '../components/Icons/EmptyBox';
 
 export function FavoritesPage() {
   const { removeFavorite, addFavoriteNote, removeFavoriteNote } = useActions();
@@ -72,10 +73,18 @@ export function FavoritesPage() {
       })
   };
 
-  if (favorites.length < 1) return <p className="text-center">No items</p>
+  if (favorites.length < 1) {
+    return (
+  <div className="top-1/2 flex flex-col items-center justify-center min-h-screen">
+        <p className="text-2xl">Ups...no items.</p>
+        <span>{<EmptyBox />}</span>
+  </div>
+    )
+
+  }
 
   return (
-    <div className="container mx-auto p-5 pt-5 h-screen w-screen font-mono">
+    <div className="container mx-auto p-5 pt-5 w-screen font-mono min-h-screen">
       <div>
         <h2 className="text-lg font-bold mb-2">Favorites repos list</h2>
       </div>
@@ -96,7 +105,7 @@ export function FavoritesPage() {
             >
             <img className="inline mr-1 relative w-16 h-16 mb-1 rounded" src={repo.avatar_url} alt="avatar" />
             </a>
-            <button className="text-sm max-h-6 px-2 px-1 mr-1 mb-1 bg-yellow-400 rounded md:hover:bg-sky-700 transition-all">
+            <button className="text-sm max-h-6 px-1 mr-1 mb-1 bg-yellow-400 rounded md:hover:bg-sky-700 transition-all">
                 <a
                 href={repo.url}
                 target="_blank"
@@ -106,7 +115,7 @@ export function FavoritesPage() {
               </a>
             </button>
             <button
-                    className="text-sm max-h-6 px-2 px-1 mb-1 bg-red-400 rounded bg-yellow-400 rounded md:hover:bg-red-400 transition-all display-inline-block"
+                    className="text-sm max-h-6 px-1 mb-1 bg-red-400 rounded md:hover:bg-red-600 transition-all display-inline-block"
               onClick=
               {
                 () =>

@@ -65,7 +65,7 @@ export function RepoCard({ repo }: { repo: IRepo }) {
 
                 {!isFav &&
                 <button
-                    className="mr-2 px-2 px-4 bg-yellow-400 rounded md:hover:bg-sky-700 transition-all transition-all"
+                    className="mr-2 px-2 bg-yellow-400 rounded md:hover:bg-sky-700 transition-all"
                     onClick={addToFavorite}
                 >
                     Add
@@ -73,7 +73,7 @@ export function RepoCard({ repo }: { repo: IRepo }) {
                 }
                 { isFav &&
                 <button
-                    className="px-2 px-4 bg-yellow-400 rounded md:hover:bg-red-400 transition-all transition-all"
+                    className="px-2 bg-yellow-400 rounded md:hover:bg-red-400 transition-all"
                     onClick={removeFromFavorite}
                 >
                     Remove

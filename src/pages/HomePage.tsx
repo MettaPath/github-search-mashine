@@ -21,6 +21,7 @@ export function HomePage() {
     const clickHandler = (username: string) => {
         fetchRepos(username)
         setDropdown(false);
+        setSearch('');
     }
 
     useEffect(() => {
@@ -28,15 +29,15 @@ export function HomePage() {
     }, [debounced, data]);
 
     return (
-        <div className="flex justify-center pt-20 mx-auto h-screen w-screen">
+        <div className="flex justify-center pt-20 min-h-screen">
             {isError && <p className="text-center text-red-600">Something went wrong...</p>}
-            <div className="relative w-[560px] pl-3 pr-3">
+            <div className="relative w-[560px] h-full pl-3 pr-3">
                 <div className="flex flex-col items-center justify-center mb-3">
                 <GitHubRed />
                     <h3 className="font-bold text-3xl font-mono text-center">FIND REPOS WHAT YOU NEED</h3>
                 </div>
                 <input
-                    className="border rounded py-2 px-4 w-full h-[42px] mb-2"
+                    className="border border-neutral-900 rounded py-2 px-4 w-full h-[42px] mb-2"
                     type="text"
                     placeholder="Serach Github Username..."
                     value={search}
