@@ -15,8 +15,8 @@ export function Navigation() {
         <Link to="/"><GitHub/></Link>
         </div>
         <span>
-          <Link to="/" className="mr-5 md:hover:text-purple-200">Home</Link>
-          <Link to="/favorites" className="md:hover:text-purple-200">Favorites<span className="text-sm">({favorites.length})</span></Link>
+          <Link to="#/" className="mr-5 md:hover:text-purple-200">Home</Link>
+          <Link to="#/favorites" className="md:hover:text-purple-200">Favorites<span className="text-sm">({favorites.length})</span></Link>
         </span>
       </nav>
     </div>
