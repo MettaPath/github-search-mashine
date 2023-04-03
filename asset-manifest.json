@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/github_serach-mashine/static/css/main.6a3336b1.css",
-    "main.js": "/github_serach-mashine/static/js/main.f36154ab.js",
+    "main.js": "/github_serach-mashine/static/js/main.77a0cb5a.js",
     "index.html": "/github_serach-mashine/index.html",
     "main.6a3336b1.css.map": "/github_serach-mashine/static/css/main.6a3336b1.css.map",
-    "main.f36154ab.js.map": "/github_serach-mashine/static/js/main.f36154ab.js.map"
+    "main.77a0cb5a.js.map": "/github_serach-mashine/static/js/main.77a0cb5a.js.map"
   },
   "entrypoints": [
     "static/css/main.6a3336b1.css",
-    "static/js/main.f36154ab.js"
+    "static/js/main.77a0cb5a.js"
   ]
 }
