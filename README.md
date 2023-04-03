@@ -4,7 +4,7 @@ SEARCH ENGINE FOR REPOSITORIES ON GITHUB.
   Web-app build with React, TypeScript, Redux Toolkit, RTKQuery, Tailwind.
 
 A working version of the application can be seen at:
-https://mettapath.github.io/github_serach-machine/
+https://mettapath.github.io/github_serach-machine
 
 If you want open project locally just:
 
