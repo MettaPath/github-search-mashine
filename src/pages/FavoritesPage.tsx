@@ -81,13 +81,13 @@ export function FavoritesPage() {
       </div>
       <ul className="list-none w-full flex-column justify-center">
         {favorites.map((repo, i) => (
-          <li className="relative flex-column flex-wrap md:w-1/3 justify-between mb-5 border-2 bg-gradient-to-r from-indigo-300 rounded p-2" key={repo.name}>
-            <div className="absolute text-sm md:top-[0px] right-0 mb-4 w-full h-4 bg-stone-700">
+          <li className="relative flex-column flex-wrap md:w-1/2 justify-between mb-5 border-2 bg-gradient-to-r from-indigo-300 rounded p-2" key={repo.name}>
+            <div className="absolute text-sm top-0 md:top-[0px] right-0 mb-4 w-full h-4 bg-stone-700">
               <p className="text-right text-xs text-white pr-1">
                 <span>added {repo.dateOfAdd}</span>
                 <span> {repo.timeOfAdd}</span>
               </p>
-              </div>
+            </div>
             <div className="flex items-end pt-3">
               <a
               href={repo.owner_url}
