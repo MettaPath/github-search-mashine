@@ -1,4 +1,8 @@
 
+Search engine for repositories on github. Ability to include a repository in favorites and comment on selected repositories
+
+Scripts:
+
 ### `npm start`
 
 Runs the app in the development mode.\
