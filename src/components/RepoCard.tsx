@@ -40,7 +40,7 @@ export function RepoCard({ repo }: { repo: IRepo }) {
     };
 
     return (
-        <div className="border py-3 px-5 rounded mb-2 md:hover:shadow-md md:hover:bg-gray-100 transition-all font-mono">
+        <div className="border py-3 px-5 rounded mb-2  shadow-md bg-gray-100 transition-all font-mono">
             <a href={repo.html_url} target="_blank" rel="noreferrer">
                 <img className="w-16 h-16 rounded mb-1" src={repo.owner.avatar_url} alt="avater" />
                 <div className="w-full h-px border-b border-zinc-900"></div>

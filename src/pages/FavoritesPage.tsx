@@ -90,7 +90,7 @@ export function FavoritesPage() {
       </div>
       <ul className="list-none w-full flex-column justify-center">
         {favorites.map((repo, i) => (
-          <li className="relative flex-column flex-wrap md:w-1/2 justify-between mb-5 border-2 bg-gradient-to-r from-indigo-300 rounded p-2" key={repo.name}>
+          <li className="relative flex-column flex-wrap md:w-1/2 justify-between mb-5 border-2 shadow-md bg-gray-100 rounded p-2" key={repo.name}>
             <div className="absolute text-sm top-0 md:top-[0px] right-0 mb-4 w-full h-4 bg-stone-700">
               <p className="text-right text-xs text-white pr-1">
                 <span>added {repo.dateOfAdd}</span>
@@ -167,7 +167,7 @@ export function FavoritesPage() {
                   .map(note =>
                   (<div key={nanoid()}>
                         <p key={note.id} className="rounded relative flex flex-col border mb-1 pb-2 bg-gray-200">
-                      <span className="flex items-center justify-between border w-full pl-1 text-sm font-thin bg-gradient-to-r from-indigo-500">{note.date} {note.time}
+                      <span className="flex items-center justify-between border w-full pl-1 text-sm font-thin hadow-md bg-gray-300">{note.date} {note.time}
                         <button
                         className="transition-all display-inline-block text-xl text-red-400 mr-1 md:hover:text-red-700 "
                         onClick={() => {
