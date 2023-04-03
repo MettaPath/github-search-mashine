@@ -8,7 +8,9 @@ https://mettapath.github.io/github_serach-mashine/
 
 If you want open project locally just:
 
-1. Clone the repository.
+1. Clone the repository.  
+
+2. Execute npm install 
 
 2. You can used usual scripts from create-react-app.
 
