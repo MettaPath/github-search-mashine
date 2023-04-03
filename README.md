@@ -1,18 +1,18 @@
 SEARCH ENGINE FOR REPOSITORIES ON GITHUB.
-  
-  Ability to include a repository in favorites and comment on selected repositories.  
-  Web-app build with React, TypeScript, Redux Toolkit, RTKQuery, Tailwind.
 
-A working version of the application can be seen at:  
+Ability to include a repository in favorites and comment on selected repositories.
+Web-app build with React, TypeScript, Redux Toolkit, RTKQuery, Tailwind.
+
+A working version of the application can be seen at:
 https://mettapath.github.io/github_serach-mashine/
 
 If you want open project locally just:
 
-1. Clone the repository.  
+1. Clone the repository.
 
-2. Execute npm install 
+2. Execute npm install
 
-2. You can used usual scripts from create-react-app.
+3. You can use usual scripts from create-react-app.
 
    Scripts:
 
