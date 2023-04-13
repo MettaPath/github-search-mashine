@@ -63,7 +63,7 @@ export function RepoCard({ repo }: { repo: IRepo }) {
                     </span>
                 </p>
 
-                <p className="text-sm font-thin w-11/12">{repo?.description}</p>
+                <p className="text-sm font-thin w-4/6">{repo?.description}</p>
 
                 {
                     isAuthenticated && (
