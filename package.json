@@ -1,6 +1,6 @@
 {
   "homepage": "https://mettapath.github.io/github-serach-mashine",
-  "name": "github_search-mashine",
+  "name": "github-search-mashine",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
