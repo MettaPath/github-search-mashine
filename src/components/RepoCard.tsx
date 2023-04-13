@@ -8,6 +8,7 @@ import { minutsConverter } from '../utils/minutsConverter';
 
 
 export function RepoCard({ repo }: { repo: IRepo }) {
+    const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
 
     const repoData = {
         dateOfAdd: new Date().toLocaleDateString(),
@@ -40,11 +41,12 @@ export function RepoCard({ repo }: { repo: IRepo }) {
     };
 
     return (
-        <div className="border py-3 px-5 rounded mb-2  shadow-md bg-gray-100 transition-all font-mono">
+        <div className="border py-3 px-5 rounded mb-2 shadow-md bg-gray-100 transition-all font-mono mx-auto">
             <a href={repo.html_url} target="_blank" rel="noreferrer">
                 <img className="w-16 h-16 rounded mb-1" src={repo.owner.avatar_url} alt="avater" />
-                <div className="w-full h-px border-b border-zinc-900"></div>
-                <h2 className="text-lg font-bold">{repo.full_name}</h2>
+                <span className="font-bold mr-2">{repo.owner.login}</span>
+                <div className="h-px border-b border-zinc-900"></div>
+                <h3 className="text-lg font-bold whitespace-pre-wrap break-words">{repo.name}</h3>
                 <p className="text-sm">
                     Forks: <span className="font-bold mr-2">{repo.forks}</span>
                     Watchers: <span className="font-bold mr-2">{repo.watchers}</span>
@@ -61,11 +63,14 @@ export function RepoCard({ repo }: { repo: IRepo }) {
                     </span>
                 </p>
 
-                <p className="text-sm font-thin">{repo?.description}</p>
+                <p className="text-sm font-thin w-11/12">{repo?.description}</p>
 
+                {
+                    isAuthenticated && (
+                <div>
                 {!isFav &&
                 <button
-                    className="mr-2 px-2 bg-yellow-400 rounded md:hover:bg-sky-700 transition-all"
+                    className="mr-2 text-sm px-2 bg-yellow-400 rounded md:hover:bg-sky-700 md:hover:text-white transition-all"
                     onClick={addToFavorite}
                 >
                     Add
@@ -73,12 +78,16 @@ export function RepoCard({ repo }: { repo: IRepo }) {
                 }
                 { isFav &&
                 <button
-                    className="px-2 bg-yellow-400 rounded md:hover:bg-red-400 transition-all"
+                    className="px-2 text-sm  bg-red-400 rounded md:hover:bg-red-600  md:hover:text-white transition-all"
                     onClick={removeFromFavorite}
                 >
                     Remove
                 </button>
                 }
+                </div>
+                    )
+                }
+
             </a>
         </div>
     );

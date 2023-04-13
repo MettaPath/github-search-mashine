@@ -6,6 +6,7 @@ import { switchIcon } from '../utils/iconsSwitcher';
 import TextareaAutosize from 'react-textarea-autosize';
 import { minutsConverter } from '../utils/minutsConverter';
 import { EmptyBox } from '../components/Icons/EmptyBox';
+import { isMacOs, isWindows } from 'react-device-detect';
 
 export function FavoritesPage() {
   const { removeFavorite, addFavoriteNote, removeFavoriteNote } = useActions();
@@ -18,6 +19,8 @@ export function FavoritesPage() {
     favorites.map(() => React.createRef())
   );
 
+
+
   const handlerNotesOpener = (mapIndex: number) => {
     setIsNotesVisible(prevState => {
     const newState = [...prevState];
@@ -26,18 +29,17 @@ export function FavoritesPage() {
   });
   };
 
-  const handlerSubmit = (name: string) => {
+  const handlerSubmit = (name: string, repoUrl: string) => {
     addFavoriteNote({
       name: name,
       note: isNote,
       id: nanoid(),
       date: new Date().toLocaleDateString(),
       time: `${new Date().getHours()}:${minutsConverter()}`,
+      repoUrl: repoUrl,
     })
     setIsNote('');
 
-    // const values = textAreaRefs.current.map((ref) => ref.current?.value || '');
-    // console.log(values);
     textAreaRefs.current.forEach((ref) => {
       if (ref.current) {
         ref.current.value = '';
@@ -91,7 +93,7 @@ export function FavoritesPage() {
       <ul className="list-none w-full flex-column justify-center">
         {favorites.map((repo, i) => (
           <li className="relative flex-column flex-wrap md:w-1/2 justify-between mb-5 border-2 shadow-md bg-gray-100 rounded p-2" key={repo.name}>
-            <div className="absolute text-sm top-0 md:top-[0px] right-0 mb-4 w-full h-4 bg-stone-700">
+            <div className="absolute text-sm top-0 md:top-[0px] right-0 mb-4 w-full h-4 bg-stone-700 shadow-md">
               <p className="text-right text-xs text-white pr-1">
                 <span>added {repo.dateOfAdd}</span>
                 <span> {repo.timeOfAdd}</span>
@@ -103,9 +105,9 @@ export function FavoritesPage() {
               target="_blank"
               rel="noreferrer"
             >
-            <img className="inline mr-1 relative w-16 h-16 mb-1 rounded" src={repo.avatar_url} alt="avatar" />
+            <img className="inline mr-1 relative w-16 h-16 mb-1 rounded shadow-md" src={repo.avatar_url} alt="avatar" />
             </a>
-            <button className="text-sm max-h-6 px-1 mr-1 mb-1 bg-yellow-400 rounded md:hover:bg-sky-700 transition-all">
+            <button className="shadow-md text-sm max-h-6 px-1 mr-1 mb-1 bg-yellow-400 rounded md:hover:bg-sky-700 md:hover:text-white transition-all">
                 <a
                 href={repo.url}
                 target="_blank"
@@ -115,7 +117,7 @@ export function FavoritesPage() {
               </a>
             </button>
             <button
-                    className="text-sm max-h-6 px-1 mb-1 bg-red-400 rounded md:hover:bg-red-600 transition-all display-inline-block"
+                    className="text-sm max-h-6 px-1 mb-1 bg-red-400 rounded md:hover:bg-red-600 md:hover:text-white transition-all display-inline-block shadow-md"
               onClick=
               {
                 () =>
@@ -153,20 +155,20 @@ export function FavoritesPage() {
             <p className="text-left text-sm font-semibold">Language: {switchIcon(repo.language)}</p>
             <p className="text-left">{repo.description}</p>
               <div className="w-full mb-1 h-px border-b border-zinc-900"></div>
-            <button onClick={() => handlerNotesOpener(i)} className="text-sm max-h-6 px-1 mr-1 mb-1 bg-yellow-400 rounded md:hover:bg-sky-700 transition-all">
+            <button onClick={() => handlerNotesOpener(i)} className="shadow-md text-sm max-h-6 px-1 mr-1 mb-1 bg-yellow-400 rounded md:hover:bg-sky-700 md:hover:text-white transition-all">
               <span className="text-sm">
-              {isNoteVisible[i] ? "Close notes" : `Notes(${notes.filter(note => (note.name === repo.name)).length})`}
+              {isNoteVisible[i] ? "Close notes" : `Notes[${notes.filter(note => (note.repoUrl === repo.url)).length}]`}
               </span>
             </button>
 
             {isNoteVisible[i] && (
-              <div className="pb-2">
+              <div className="pb-2 overflow-y-scroll max-h-[300px]">
               {
                 notes
-                  .filter(note => (note.name === repo.name))
+                  .filter(note => (note.repoUrl === repo.url))
                   .map(note =>
                   (<div key={nanoid()}>
-                        <p key={note.id} className="rounded relative flex flex-col border mb-1 pb-2 bg-gray-200">
+                        <p key={note.id} className="rounded relative flex flex-col border mb-1 pb-2 bg-gray-200 ">
                       <span className="flex items-center justify-between border w-full pl-1 text-sm font-thin hadow-md bg-gray-300">{note.date} {note.time}
                         <button
                         className="transition-all display-inline-block text-xl text-red-400 mr-1 md:hover:text-red-700 "
@@ -194,7 +196,7 @@ export function FavoritesPage() {
               <form className="flex border items-start border-slate-700 rounded p-2"
               onSubmit={(e) => {
                 e.preventDefault();
-                handlerSubmit(repo.name);
+                handlerSubmit(repo.name, repo.url);
                 }}>
                 <TextareaAutosize
                 style={{resize: "none"}}
@@ -204,7 +206,13 @@ export function FavoritesPage() {
                 placeholder="Add your note here..."
                 onChange={(e) => {
                   setIsNote(e.currentTarget.value);
-              }}>
+                }}
+                onKeyDown={(e) => {
+                  if ((isMacOs && e.metaKey && e.key === "Enter") ||
+                    (isWindows && e.ctrlKey && e.key === "Enter"))
+                  { handlerSubmit(repo.name, repo.url) }
+                }}
+                >
               </TextareaAutosize>
               <button type='submit' className="translate-y-0.6 text-2xl block rounded text-slate-700 pl-1 md:hover:text-sky-700 transition-all">&#5125;</button>
             </form>

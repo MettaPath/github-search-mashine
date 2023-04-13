@@ -18,6 +18,18 @@ export const githubApi = createApi({
             }),
             transformResponse: (response: ServerResponse<IUser>) => response.items
         }),
+        // search by repos
+        // searchRepositories: build.query<IRepo[], string>({
+        // query: (search: string) => ({
+        //     url: `search/repositories`,
+        //     params: {
+        //         q: search,
+        //         per_page: 10,
+        //     }
+        // }),
+        // transformResponse: (response: ServerResponse<IRepo>) => response.items
+        // }),
+
         getUserRepos: build.query<IRepo[], string>({
             query: (username: string) => ({
                 url: `users/${username}/repos`
@@ -30,4 +42,4 @@ export const githubApi = createApi({
     })
 });
 
-export const { useSearchUsersQuery, useLazyGetUserReposQuery} = githubApi;
+export const { useSearchUsersQuery, useLazyGetUserReposQuery } = githubApi;
