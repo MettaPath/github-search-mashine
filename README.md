@@ -4,7 +4,7 @@ Ability to include a repository in favorites and comment on selected repositorie
 Web-app build with React, TypeScript, Redux Toolkit, RTKQuery, Tailwind.
 
 A working version of the application can be seen at:
-https://mettapath.github.io/github-serach-mashine/
+https://mettapath.github.io/github-search-mashine/
 
 If you want open project locally just:
 
