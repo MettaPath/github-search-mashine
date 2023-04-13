@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/github-serach-mashine/static/css/main.e8912629.css",
-    "main.js": "/github-serach-mashine/static/js/main.40d690d7.js",
-    "index.html": "/github-serach-mashine/index.html",
-    "main.e8912629.css.map": "/github-serach-mashine/static/css/main.e8912629.css.map",
-    "main.40d690d7.js.map": "/github-serach-mashine/static/js/main.40d690d7.js.map"
+    "main.css": "/github-search-mashine/static/css/main.b4e3bbd5.css",
+    "main.js": "/github-search-mashine/static/js/main.67888892.js",
+    "index.html": "/github-search-mashine/index.html",
+    "main.b4e3bbd5.css.map": "/github-search-mashine/static/css/main.b4e3bbd5.css.map",
+    "main.67888892.js.map": "/github-search-mashine/static/js/main.67888892.js.map"
   },
   "entrypoints": [
-    "static/css/main.e8912629.css",
-    "static/js/main.40d690d7.js"
+    "static/css/main.b4e3bbd5.css",
+    "static/js/main.67888892.js"
   ]
 }
