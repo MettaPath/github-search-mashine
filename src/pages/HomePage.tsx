@@ -54,7 +54,7 @@ export function HomePage() {
                     <input
                     className="mr-1 border focus:outline-none border-neutral-900 rounded py-2 px-4 w-full h-[42px] mb-2"
                     type="text"
-                    placeholder="Serach Github Username..."
+                    placeholder="Search Github Username..."
                     value={search}
                         onChange={e => setSearch(e.target.value)}
                         onKeyDown={handleKeyPress}
