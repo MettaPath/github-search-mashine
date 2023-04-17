@@ -1,7 +1,15 @@
 SEARCH ENGINE FOR REPOSITORIES ON GITHUB.
 
-Ability to include a repository in favorites and comment on selected repositories.
-Web-app build with React, TypeScript, Redux Toolkit, RTKQuery, Tailwind.
+Web-app build with:
+
+- React,
+- TypeScript,
+- Firebase,
+- Redux Toolkit,
+- Redux Thunk
+- RTKQuery,
+- Redux firestore,
+- Tailwind.
 
 A working version of the application can be seen at:
 https://mettapath.github.io/github-search-mashine/
