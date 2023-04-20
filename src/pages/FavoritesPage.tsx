@@ -7,6 +7,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { minutsConverter } from '../utils/minutsConverter';
 import { EmptyBox } from '../components/Icons/EmptyBox';
 import { isMacOs, isWindows } from 'react-device-detect';
+import { useFirestoreSubscriptions } from '../hooks/useFirestoreSubsriptions';
 
 export function FavoritesPage() {
   const { removeFavorite, addFavoriteNote, removeFavoriteNote } = useActions();
@@ -15,11 +16,12 @@ export function FavoritesPage() {
   const [isNote, setIsNote] = useState('');
   const [isNoteVisible, setIsNotesVisible] = useState<boolean[]>(Array(favorites.length).fill(false));
 
+
   const textAreaRefs = useRef<Array<React.RefObject<HTMLTextAreaElement>>>(
     favorites.map(() => React.createRef())
   );
 
-
+  useFirestoreSubscriptions();
 
   const handlerNotesOpener = (mapIndex: number) => {
     setIsNotesVisible(prevState => {
@@ -86,13 +88,13 @@ export function FavoritesPage() {
   }
 
   return (
-    <div className="container mx-auto p-5 pt-5 w-screen font-mono min-h-screen">
+    <div className="container mx-auto p-5 pt-20 w-screen font-mono min-h-screen">
       <div>
         <h2 className="text-lg font-bold mb-2">Favorites repos list</h2>
       </div>
       <ul className="list-none w-full flex-column justify-center">
         {favorites.map((repo, i) => (
-          <li className="relative flex-column flex-wrap md:w-1/2 justify-between mb-5 border-2 shadow-md bg-gray-100 rounded p-2" key={repo.name}>
+          <li className="relative flex-column flex-wrap sm:w-full md:w-full lg:w-1/2 justify-between mb-5 border-2 shadow-md bg-gray-100 rounded p-2" key={repo.name}>
             <div className="absolute text-sm top-0 md:top-[0px] right-0 mb-4 w-full h-4 bg-stone-700 shadow-md">
               <p className="text-right text-xs text-white pr-1">
                 <span>added {repo.dateOfAdd}</span>
@@ -182,7 +184,7 @@ export function FavoritesPage() {
                       &#10006;
                       </button>
                       </span>
-                      <span className="pl-1 whitespace-pre-wrap break-words text-xs ">
+                      <span className="pl-1 whitespace-pre-wrap break-words text-sm ">
                         {note.note}
                       </span>
                       </p>
@@ -193,7 +195,7 @@ export function FavoritesPage() {
               </div>
             )}
             {isNoteVisible[i] &&
-              <form className="flex border items-center border-slate-700 h-fit rounded px-1 mr-4"
+              <form className="flex border items-center border-slate-700 rounded px-1 md:mr-4"
               onSubmit={(e) => {
                 e.preventDefault();
                 handlerSubmit(repo.name, repo.url);
@@ -202,7 +204,7 @@ export function FavoritesPage() {
                 style={{resize: "none"}}
                 required
                 ref={textAreaRefs.current[i]}
-                className="w-full rounded focus:outline-none mr-1 h-[15px] text-xs"
+                className="w-full rounded focus:outline-none mr-1 h-[15px] text-md"
                 placeholder="Add your note here..."
                 onChange={(e) => {
                   setIsNote(e.currentTarget.value);

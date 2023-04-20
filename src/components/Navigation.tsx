@@ -28,7 +28,7 @@ export function Navigation() {
 };
 
   return (
-    <div className="w-screen h-[50px] shadow-md bg-gray-500 font-mono">
+    <div className="w-screen h-[50px] shadow-md bg-gray-500 font-mono fixed z-30 mb-10">
       <nav className="container text-sm mx-auto flex justify-between items-center h-[50px] px-5 text-white">
         <div className="flex flex-row">
         <Link to="/" className="font-bold text-lg mr-2 hidden md:block">GitHub Search</Link>

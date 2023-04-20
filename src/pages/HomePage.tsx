@@ -6,6 +6,7 @@ import { GitHubRed } from '../components/Icons/GitHubRed';
 import { RotatingLines } from 'react-loader-spinner';
 import { useAppSelector } from '../hooks/redux';
 import { Info } from '../components/Info';
+import { ScrollToTopButton } from '../components/ScrollToTopButton';
 
 
 export function HomePage() {
@@ -40,19 +41,19 @@ export function HomePage() {
     };
 
     return (
-        <div className="flex justify-center pt-20 min-h-screen">
+        <div className="flex justify-center pt-48 min-h-screen">
             <div className="relative w-[560px] h-full pl-3 pr-3">
                 {!isAuthenticated &&
                 <Info />
                 }
                 <div className="flex flex-col items-center justify-center mb-3">
                 <GitHubRed />
-                    <h3 className="font-bold text-3xl font-mono text-center">FIND REPOS WHAT YOU NEED</h3>
+                    <h3 className="font-bold text-3xl font-mono text-center drop-shadow">FIND REPOS WHAT YOU NEED</h3>
                 {(isError) && <p className="text-center text-red-600">Something went wrong...</p>}
                 </div>
                 <div className="flex flex-row">
                     <input
-                    className="mr-1 border focus:outline-none border-neutral-900 rounded py-2 px-4 w-full h-[42px] mb-2"
+                    className="shadow-md mr-1 border focus:outline-none border-neutral-900 rounded py-2 px-4 w-full h-[42px] mb-2"
                     type="text"
                     placeholder="Search Github Username..."
                     value={search}
@@ -105,6 +106,7 @@ export function HomePage() {
                     {repos?.map(repo => <RepoCard repo={repo} key={repo.id} />)}
                 </div>
             </div>
+            <ScrollToTopButton />
         </div>
     );
 }
