@@ -9,7 +9,6 @@ import { fetchFavorites } from '../store/github/github.slice';
 import { fetchFavoriteNotes } from '../store/github/github.fav.notes';
 import { GitHubRed } from './Icons/GitHubRed';
 import { Google } from './Icons/Google';
-import 'firebaseui/dist/firebaseui.css';
 
 export function Login() {
     const { loginSuccess } = useActions();
@@ -37,18 +36,34 @@ export function Login() {
         event.preventDefault();
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            console.log("Пользователь успешно вошел в систему!");
+            const user = userCredential.user;
+            if (user && !user.emailVerified) {
+            setErrorMessage("Please verify your email before sign in.");
+            return;
+            }
+
             navigate('/');
             loginSuccess(userCredential);
             await dispatch(fetchFavorites());
             await dispatch(fetchFavoriteNotes());
         } catch (error: any) {
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    error.message = 'Invalid email.';
+                    break;
+                case 'auth/wrong-password':
+                    error.message = 'Wrong password.';
+                    break;
+                default:
+                    error.message = 'Login error, wrong password or email.';
+                break;
+            }
             setErrorMessage(error.message);
         }
     };
 
     return (
-        <div className="h-screen flex justify-center items-center">
+        <div className="h-screen flex justify-center items-center md:mt-12">
             <div className="flex flex-col justify-center max-w-[340px] items-center border py-5 px-5 rounded mb-10 shadow-md bg-gray-100">
                     <GitHubRed />
                     <h3 className="font-mono font-bold text-xl pt-2 mb-4">Sign in to GitHub Search</h3>
@@ -73,14 +88,21 @@ export function Login() {
                 htmlFor="password"
             >
             Password
+                    <span className="ml-20 pl-6">
+                            <Link
+                                className="text-xs text-blue-500 md:hover:text-blue-800 md:hover:underline"
+                                to={"/resetpass"}
+                            >Forgot password?
+                            </Link>
+                    </span>
                 <input
                 required
-                className="border border-neutral-900 rounded py-1 px-1 w-full h-[25px] mb-2 focus:outline-none"
+                className="relative border border-neutral-900 rounded py-1 px-1 w-full h-[25px] mb-2 focus:outline-none"
                 type="password"
                 id="password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-            />
+                />
             </label>
             <button className="shadow-md text-sm px-1 mb-1 h-[25px] bg-yellow-400 rounded md:hover:bg-sky-700 hover:text-white transition-all" type="submit">Sign in</button>
                 </form>

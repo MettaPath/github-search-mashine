@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useState } from 'react';
 import { auth } from '../services/fireBaseConfig';
 import { GitHubRed } from './Icons/GitHubRed';
@@ -16,23 +16,40 @@ export function RegistrationForm() {
         event.preventDefault();
             try {
             await createUserWithEmailAndPassword(auth, email, password);
-            console.log("User registered successfully!");
+                console.log("User registered successfully!");
+                const user = auth.currentUser;
+                if (user) {
+                await sendEmailVerification(user);
+                setSuccessMessage("Successful registration! Please check your inbox and verify your email.");
+                }
                 if (errorMessage) {
                     setErrorMessage("");
                 }
-                setSuccessMessage("Successful registration! You can sign in!");
                 setPassword('');
                 setEmail('');
             } catch (error: any) {
                 if (successMessage) {
                     setSuccessMessage("");
                 }
+
+                switch (error.code) {
+                case 'auth/email-already-in-use':
+                    error.message = 'Email already in use.';
+                    break;
+                case 'auth/weak-password':
+                    error.message = 'Password should be at least 6 characters';
+                    break;
+                default:
+                    error.message = 'Sign up error, please try again later';
+                break;
+            }
+
                 setErrorMessage(error.message);
             }
         };
 
     return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-screen flex justify-center items-center md:mt-12">
         <div className="flex flex-col justify-center max-w-[340px] items-center border py-5 px-5 rounded mb-10 shadow-md bg-gray-100">
                 <GitHubRed />
                 <h3 className="font-mono font-bold text-xl pt-2 mb-4">Sign up to GitHub Search</h3>
@@ -71,7 +88,7 @@ export function RegistrationForm() {
                         You have account?
                     </span>
                     <span>
-                        <Link className="text-blue-500 md:hover:text-blue-800 md:hover:underline" to="/signin">Sign in</Link>
+                        <Link className="text-blue-500 md:hover:text-blue-800 md:hover:underline" to="/login">Sign in</Link>
                     </span>
                 </p>
         </div>

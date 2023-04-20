@@ -5,6 +5,7 @@ import { GitHub } from './Icons/GitHub';
 import { auth } from '../services/fireBaseConfig'
 import { useActions } from '../hooks/actions';
 import { User } from './Icons/User';
+import { Burger } from "./Burger";
 
 
 
@@ -33,7 +34,7 @@ export function Navigation() {
         <Link to="/" className="font-bold text-lg mr-2 hidden md:block">GitHub Search</Link>
         <Link to="/"><GitHub/></Link>
         </div>
-        <span className="flex">
+        <span className="md:flex hidden">
           <Link to="/" className="mr-5 md:hover:text-neutral-900 transition-all">Home</Link>
           {!isAuthenticated &&
           <div>
@@ -56,6 +57,9 @@ export function Navigation() {
             </div>
           }
         </span>
+        <div className="md:hidden block">
+          <Burger />
+        </div>
       </nav>
     </div>
 

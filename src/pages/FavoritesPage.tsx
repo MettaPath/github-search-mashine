@@ -168,8 +168,8 @@ export function FavoritesPage() {
                   .filter(note => (note.repoUrl === repo.url))
                   .map(note =>
                   (<div key={nanoid()}>
-                        <p key={note.id} className="rounded relative flex flex-col border mb-1 pb-2 bg-gray-200 ">
-                      <span className="flex items-center justify-between border w-full pl-1 text-sm font-thin hadow-md bg-gray-300">{note.date} {note.time}
+                        <p key={note.id} className="rounded shadow-md relative flex flex-col border mb-1 pb-1 bg-gray-200 ">
+                      <span className="flex items-center justify-between border w-full h-5 pl-1 text-xs bg-gray-300">{note.date} {note.time}
                         <button
                         className="transition-all display-inline-block text-xl text-red-400 mr-1 md:hover:text-red-700 "
                         onClick={() => {
@@ -182,7 +182,7 @@ export function FavoritesPage() {
                       &#10006;
                       </button>
                       </span>
-                      <span className="pl-1 whitespace-pre-wrap break-words">
+                      <span className="pl-1 whitespace-pre-wrap break-words text-xs ">
                         {note.note}
                       </span>
                       </p>
@@ -193,7 +193,7 @@ export function FavoritesPage() {
               </div>
             )}
             {isNoteVisible[i] &&
-              <form className="flex border items-start border-slate-700 rounded p-2"
+              <form className="flex border items-center border-slate-700 h-fit rounded px-1 mr-4"
               onSubmit={(e) => {
                 e.preventDefault();
                 handlerSubmit(repo.name, repo.url);
@@ -202,7 +202,7 @@ export function FavoritesPage() {
                 style={{resize: "none"}}
                 required
                 ref={textAreaRefs.current[i]}
-                className="w-full rounded p-1 h-2 focus:outline-none mr-1"
+                className="w-full rounded focus:outline-none mr-1 h-[15px] text-xs"
                 placeholder="Add your note here..."
                 onChange={(e) => {
                   setIsNote(e.currentTarget.value);
@@ -214,7 +214,7 @@ export function FavoritesPage() {
                 }}
                 >
               </TextareaAutosize>
-              <button type='submit' className="translate-y-0.6 text-2xl block rounded text-slate-700 pl-1 md:hover:text-sky-700 transition-all">&#5125;</button>
+              <button type='submit' className="translate-y-0.6 text-xl block rounded text-slate-700 pl-1 md:hover:text-sky-700 transition-all">&#5125;</button>
             </form>
             }
           </li>))}

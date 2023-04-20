@@ -6,6 +6,7 @@ import { HomePage } from './pages/HomePage';
 import { Footer } from './components/Footer';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Login } from './components/Login';
+import { ResetPass } from './components/ResetPass';
 
 
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/signup" element={<RegistrationForm />} />
             <Route path="/login" element={<Login />} />
             <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/resetpass" element={<ResetPass />} />
           </Routes>
       <Footer />
     </>
