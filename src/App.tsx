@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Routes} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate} from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { FavoritesPage } from './pages/FavoritesPage';
 import { HomePage } from './pages/HomePage';
@@ -11,6 +11,17 @@ import { ResetPass } from './components/ResetPass';
 
 
 function App() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const existingRoutes = ["/", "/favorites", "/login", "/signup", "/resetpass"];
+    const path = window.location.pathname.replace(/\/github-search-mashine/, "");
+    const isExistingRoute = existingRoutes.includes(path);
+    if (!isExistingRoute) {
+      navigate("/github-search-mashine/");
+    }
+  }, [navigate]);
+
   return (
     <>
       <Navigation />
