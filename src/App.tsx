@@ -19,7 +19,7 @@ function App() {
     const path = location.pathname.replace(/\/github-search-mashine/, "");
     const isExistingRoute = existingRoutes.includes(path);
     if (!isExistingRoute) {
-      navigate("/github-search-mashine/");
+      navigate("/github-search-mashine/", { replace: true });
     }
   }, [location.pathname, navigate]);
 
