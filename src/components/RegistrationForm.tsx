@@ -49,7 +49,7 @@ export function RegistrationForm() {
         };
 
     return (
-    <div className="h-screen flex justify-center items-center md:mt-12">
+    <div className="h-screen flex justify-center items-center">
         <div className="flex flex-col justify-center max-w-[340px] items-center border py-5 px-5 rounded mb-10 shadow-md bg-gray-100">
                 <GitHubRed />
                 <h3 className="font-mono font-bold text-xl pt-2 mb-4">Sign up to GitHub Search</h3>
@@ -79,7 +79,7 @@ export function RegistrationForm() {
                             />
                     </label>
                 <button
-                    className="text-sm shadow-md px-1 mb-1 h-[25px] bg-yellow-400 rounded md:hover:bg-sky-700 hover:text-white transition-all"
+                    className="text-sm shadow-md px-1 mb-1 h-[25px] bg-yellow-400 rounded md:hover:bg-sky-700 md:hover:text-white transition-all"
                     type="submit">Sign up
                 </button>
                 </form>
