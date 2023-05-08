@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate} from 'react-router-dom';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { FavoritesPage } from './pages/FavoritesPage';
 import { HomePage } from './pages/HomePage';
@@ -7,22 +7,11 @@ import { Footer } from './components/Footer';
 import { RegistrationForm } from './components/RegistrationForm';
 import { Login } from './components/Login';
 import { ResetPass } from './components/ResetPass';
+import { Profile } from './components/Profile';
 
 
 
 function App() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    const existingRoutes = ["/", "/login", "/favorites", "/login", "/signup", "/resetpass"];
-    const path = location.pathname.replace(/\/github-search-mashine/, "");
-    const isExistingRoute = existingRoutes.includes(path);
-    if (!isExistingRoute) {
-      navigate("/github-search-mashine/", { replace: true });
-    }
-  }, [location.pathname, navigate]);
-
   return (
     <>
       <Navigation />
@@ -32,6 +21,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/resetpass" element={<ResetPass />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
       <Footer />
     </>

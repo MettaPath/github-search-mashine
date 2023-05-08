@@ -11,7 +11,7 @@ export function Burger() {
     const { logoutSuccess } = useActions();
     const { favorites } = useAppSelector(state => state.github);
     const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
-    const userEmail = useAppSelector(state => state.auth?.user?.user?.email);
+    const { displayName, email } = useAppSelector(state => state.auth.user);
     const [isOpen, setOpen] = React.useState(false);
     const navigate = useNavigate();
     const dropRef = React.useRef<HTMLSpanElement>(null);
@@ -46,29 +46,53 @@ export function Burger() {
 return (
     <div className="relative flex flex-row items-center">
         {isAuthenticated &&
-            <div className="flex flex-row">
-                <span className="text-sm">[{userEmail}]</span>
+            <div className="flex flex-row justify-center items-center border rounded p-1">
+                <p className="flex flex-col items-end mr-1">
+                    <span className="font-thin">You sign in as:</span>
+                    <span className="text-sm">{displayName ? displayName : email}</span>
+                </p>
                 <User />
             </div>
         }
         <Hamburger size={25} toggled={isOpen} toggle={setOpen} />
         {isOpen && (
             <span
-                className="absolute text-xl top-[49px] right-[-20px] flex flex-col justify-start items-end pt-14 pr-10 bg-gray-400 h-screen w-screen z-40"
+                className="absolute text-xl top-[58px] right-[-20px] flex flex-col justify-start items-end pt-14 pr-10 bg-gray-400 h-screen w-screen z-40"
                 ref={dropRef}
             >
-                    <Link onClick={() => handleSetOpen()} to="/" className="md:hover:text-neutral-900 transition-all mb-2">Home</Link>
+                <Link
+                    onClick={() => handleSetOpen()}
+                    to="/"
+                    className="md:hover:text-neutral-900 transition-all mb-2">Home
+                </Link>
                     {!isAuthenticated &&
                     <div className="flex flex-col items-end">
-                        <Link onClick={() => handleSetOpen()} to="/login" className="md:hover:text-neutral-900 transition-all mb-2">Sign in</Link>
-                        <Link onClick={() => handleSetOpen()} to="/signup" className="md:hover:text-neutral-900 md:hover:border-neutral-900 border rounded p-1 transition-all">Sign up</Link>
+                        <Link
+                            onClick={() => handleSetOpen()}
+                            to="/login"
+                            className="md:hover:text-neutral-900 transition-all mb-2">Sign in
+                        </Link>
+                        <Link
+                            onClick={() => handleSetOpen()}
+                            to="/signup"
+                            className="md:hover:text-neutral-900 md:hover:border-neutral-900 border rounded p-1 transition-all">Sign up
+                        </Link>
                     </div>
                     }
                     {isAuthenticated &&
-                    <Link onClick={() => handleSetOpen()} to="/favorites" className="md:hover:text-neutral-900 transition-all mb-2">Favorites<span className="text-sm">[{favorites.length}]</span></Link>
+                    <Link
+                        onClick={() => handleSetOpen()}
+                        to="/favorites"
+                        className="md:hover:text-neutral-900 transition-all mb-2">Favorites<span className="text-sm">[{favorites.length}]</span>
+                    </Link>
                     }
                     {isAuthenticated &&
-                        <div className="flex flex-row">
+                    <div className="flex flex-col items-end">
+                        <Link
+                            onClick={() => handleSetOpen()}
+                            to="/profile"
+                            className="md:hover:text-neutral-900 rounded transition-all mb-2">Profile
+                        </Link>
                     <button
                         className="md:hover:text-neutral-900 transition-all"
                         onClick={() => handleSignOut()}

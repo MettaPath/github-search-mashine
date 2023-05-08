@@ -36,7 +36,7 @@ export function ResetPass() {
                         Email address
                         <input
                             required
-                            className="border border-neutral-900 rounded py-1 px-1 w-full h-[25px] mb-2 focus:outline-none"
+                            className="border border-neutral-900 rounded py-1 px-1 w-full h-[30px] text-lg md:text-sm mb-2 focus:outline-none"
                             type="email"
                             id="email"
                             value={email}

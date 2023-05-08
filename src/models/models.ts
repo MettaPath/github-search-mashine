@@ -1,5 +1,6 @@
 export interface ServerResponse<T> {
     total_count: number;
+    public_repos: number;
     incomplete_results: boolean;
     items: T[];
 }
@@ -24,9 +25,12 @@ export interface IUser {
     type: string;
     site_admin: boolean;
     score: number;
+    public_repos: number;
 }
 
 export interface IRepo {
+    length: number;
+    totalCount: number;
     id: number;
     node_id: string;
     name: string;
@@ -126,4 +130,9 @@ export interface IOwner {
     received_events_url: string;
     type: string;
     site_admin: boolean;
+}
+
+export interface IUserRepos {
+  totalCount: number;
+  items: IRepo[];
 }

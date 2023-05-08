@@ -1,31 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { RepoCard } from '../components/RepoCard';
 import { useDebounce } from '../hooks/debounce';
-import { useLazyGetUserReposQuery, useSearchUsersQuery } from '../store/github/github.api';
+import { useLazyGetUserReposCountQuery, useLazyGetUserReposQuery, useSearchUsersQuery } from '../store/github/github.api';
 import { GitHubRed } from '../components/Icons/GitHubRed';
 import { RotatingLines } from 'react-loader-spinner';
 import { useAppSelector } from '../hooks/redux';
 import { Info } from '../components/Info';
 import { ScrollToTopButton } from '../components/ScrollToTopButton';
+import { useActions } from '../hooks/actions';
+import { auth } from '../services/fireBaseConfig';
+import { Pagination } from '../components/Pagination';
 
 
 export function HomePage() {
     const [search, setSearch] = useState('');
     const [dropdown, setDropdown] = useState(false);
+    const [page, setPage] = useState(1);
+    const [debouncedSearchValue, setDebouncedSearchValue] = useState('');
     const debounced = useDebounce(search);
     const isAuthenticated = useAppSelector(state => state.auth.isAuthenticated);
+    const { refetchDisplayName, updateAvatarSubscribe } = useActions();
+    const userDisplayName = auth.currentUser?.displayName;
+    const userAvatar = auth.currentUser?.photoURL;
+
+    const [fetchUserRepos, { isLoading: areReposloading, data: repos }] = useLazyGetUserReposQuery();
+    const [fetchUserReposCount, { isLoading: isCountLoading, data: count }] = useLazyGetUserReposCountQuery();
 
     const {isLoading, isError, data } = useSearchUsersQuery(debounced, {
         skip: debounced.length < 2,
         refetchOnFocus: true
         });
 
-    const [fetchUserRepos, { isLoading: areReposloading, data: repos }] = useLazyGetUserReposQuery();
 
     const clickHandler = (username: string) => {
-        fetchUserRepos(username)
+        fetchUserRepos({ username, page: 1 })
+        fetchUserReposCount(username);
         setDropdown(false);
         setSearch('');
+        setDebouncedSearchValue(search);
+        setPage(1);
     }
 
     useEffect(() => {
@@ -34,10 +47,58 @@ export function HomePage() {
 
     const handleKeyPress = (event: { key: string; }) => {
         if (event.key === "Enter") {
-            fetchUserRepos(search)
+            fetchUserRepos({ username: search, page: 1 })
+            fetchUserReposCount(search);
             setSearch('');
             setDropdown(false);
+            setDebouncedSearchValue(search);
+            setPage(1);
         }
+    };
+
+
+    useEffect(() => {
+    if (userDisplayName) {
+    refetchDisplayName(userDisplayName);
+    }
+    if (userAvatar) {
+    updateAvatarSubscribe(userAvatar);
+    }
+//   eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userDisplayName]);
+
+    // pagination
+    const loadMore = () => {
+        fetchUserRepos({ username: debouncedSearchValue, page: page + 1 });
+        setPage(page + 1);
+        window.scrollTo({
+        top: 0,
+        behavior: "auto"
+        });
+
+    };
+
+    const loadPrev = () => {
+    if (page > 1) {
+        fetchUserRepos({ username: debouncedSearchValue, page: page - 1 });
+        setPage(page - 1);
+
+        window.scrollTo({
+        top: 0,
+        behavior: "auto"
+        });
+        }
+    };
+
+    const goToPage = (num: number) => {
+        setPage(num);
+        fetchUserRepos({ username: debouncedSearchValue, page: num });
+
+        window.scrollTo({
+        top: 0,
+        behavior: "auto"
+        });
+
     };
 
     return (
@@ -68,6 +129,7 @@ export function HomePage() {
                 </div>
 
                 {dropdown &&
+
                     <ul className="overflow-y-scroll list-none absolute md:top-[189px] left-3 right-3 max-h-[200px] shadow-md bg-white">
                     {(isLoading) && <p className="text-center">Loading...</p>}
                     {data?.map(user => (
@@ -103,8 +165,57 @@ export function HomePage() {
                         </p>
                         </div>
                     }
-                    {repos?.map(repo => <RepoCard repo={repo} key={repo.id} />)}
+                    {
+                        (repos?.length !== 0 && repos?.length !== undefined) &&
+                            <>
+                            {isCountLoading ? (
+                            <p>Loading...</p>
+                            ) : (
+                                    <div className="flex flex-row">
+                                    <p className="font-thin mr-2">
+                                        Public repos found: {count?.count}
+                                        </p>
+                                    <p className="font-thin mr-2">
+                                        Pages: {count && Math.ceil(count.count / 15)}
+                                        </p>
+                                    <p className="font-thin mr-2">
+                                        Page: {page}
+                                        </p>
+                                    </div>
+
+                            )}
+                            </>
+                    }
+                    {
+                        repos?.map(repo => <RepoCard repo={repo} key={repo.id} />)
+                    }
                 </div>
+                {repos && (
+                    <div className="mx-auto flex flex-row justify-center mb-4">
+                        {page > 1 && (
+
+                        <button
+                            className="text-sm  px-1 h-[25px] w-fit bg-yellow-400 rounded md:hover:bg-sky-700 md:hover:text-white transition-all shadow-md"
+                            onClick={() => loadPrev()}
+                        >
+                            &#8592;
+                        </button>
+                        )}
+
+                        {(count && count?.count > 15) &&
+                        <Pagination count={count?.count} goToPage={goToPage} page={page} />
+                        }
+
+                        {repos.length === 15 && (
+                                <button
+                                    className="text-sm  px-1 h-[25px] w-fit bg-yellow-400 rounded md:hover:bg-sky-700 md:hover:text-white transition-all shadow-md"
+                                    onClick={() => loadMore()}
+                                >
+                                    &#8594;
+                                </button>
+                        )}
+                    </div>
+                    )}
             </div>
             <ScrollToTopButton />
         </div>

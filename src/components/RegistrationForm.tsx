@@ -5,7 +5,6 @@ import { auth } from '../services/fireBaseConfig';
 import { GitHubRed } from './Icons/GitHubRed';
 import { Link } from 'react-router-dom';
 
-
 export function RegistrationForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -49,7 +48,7 @@ export function RegistrationForm() {
         };
 
     return (
-    <div className="h-screen flex justify-center items-center">
+        <div className="h-screen flex justify-center items-center">
         <div className="flex flex-col justify-center max-w-[340px] items-center border py-5 px-5 rounded mb-10 shadow-md bg-gray-100">
                 <GitHubRed />
                 <h3 className="font-mono font-bold text-xl pt-2 mb-4">Sign up to GitHub Search</h3>
@@ -60,7 +59,7 @@ export function RegistrationForm() {
                         Email address
                             <input
                                 required
-                                className="border border-neutral-900 rounded py-1 px-1 w-full h-[25px] mb-2 focus:outline-none"
+                                className="border border-neutral-900 rounded py-1 px-1 w-full h-[30px] text-lg md:text-sm mb-2 focus:outline-none"
                                 type="email"
                                 id="email"
                                 value={email}
@@ -71,7 +70,7 @@ export function RegistrationForm() {
                         Password
                             <input
                                 required
-                                className="border border-neutral-900 rounded py-1 px-1 w-full h-[25px] mb-2 focus:outline-none"
+                                className="border border-neutral-900 rounded py-1 px-1 w-full h-[30px] text-lg md:text-sm mb-2 focus:outline-none"
                                 type="password"
                                 id="password"
                                 value={password}
@@ -83,6 +82,7 @@ export function RegistrationForm() {
                     type="submit">Sign up
                 </button>
                 </form>
+                <div className="w-full h-px border-b border-zinc-900 mb-2"></div>
                 <p className="text-sm flex flex-row">
                     <span className="mr-1">
                         You have account?

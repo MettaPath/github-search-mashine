@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCfDgKM80PKqBI85joVrybZNSeaSdPH9EQ",
@@ -15,9 +16,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-// eslint-disable-next-line no-unused-vars
-const analytics = getAnalytics(app);
-
+export const analytics = getAnalytics(app);
 // services
 export const auth = getAuth();
 export const firestore = getFirestore(app);
+export const storage = getStorage(app);

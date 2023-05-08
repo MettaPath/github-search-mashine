@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 body {
-    background-color: #8EC5FC;
-    background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+    background: #8EC5FC;
     width: 100%;
     max-width: 100%;
     overflow-x: hidden;

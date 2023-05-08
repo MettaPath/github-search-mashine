@@ -8,7 +8,13 @@ const LS_USER_DATA = 'user_data';
 
 interface AuthState {
     isAuthenticated: boolean;
-    user: UserCredential | null;
+    user: {
+        email?: string | null,
+        displayName?: string | null,
+        emailVerified?: boolean | null,
+        photoURL?: string | null,
+        phoneNumber?: string | null,
+    };
 }
 
 const initialState: AuthState = {
@@ -22,7 +28,24 @@ const authSlice = createSlice({
     reducers: {
         loginSuccess(state, action: PayloadAction<UserCredential>) {
             state.isAuthenticated = true;
-            state.user = action.payload;
+            const
+                {
+                    email,
+                    displayName,
+                    emailVerified,
+                    photoURL,
+                    phoneNumber,
+
+                } = action.payload.user;
+            state.user =
+            {
+                email,
+                displayName,
+                emailVerified,
+                photoURL,
+                phoneNumber,
+            }
+
             localStorage.setItem(LS_AUTH_FLAG, JSON.stringify(state.isAuthenticated));
             localStorage.setItem(LS_USER_DATA, JSON.stringify(state.user));
 
@@ -89,9 +112,55 @@ const authSlice = createSlice({
                 });
             }
         },
+
+        updateDisplayName(state, action: PayloadAction<string>) {
+            const newDisplayName = action.payload;
+            const changedUser = { ...state.user, displayName: newDisplayName };
+            state.user = changedUser;
+            localStorage.setItem(LS_USER_DATA, JSON.stringify(changedUser));
+        },
+
+        updateStoreEmail(state, action: PayloadAction<string>) {
+            const newEmail = action.payload;
+            const changedUser = { ...state.user, email: newEmail, emailVerified: false};
+            state.user = changedUser;
+            localStorage.setItem(LS_USER_DATA, JSON.stringify(changedUser));
+        },
+
+        updateAvatar(state, action: PayloadAction<string>) {
+            const newAvatarURL = action.payload;
+            const changedUser = { ...state.user, photoURL: newAvatarURL };
+            state.user = changedUser;
+            localStorage.setItem(LS_USER_DATA, JSON.stringify(changedUser));
+        },
+
+        updateAvatarSubscribe: (state, action: PayloadAction<string>) => {
+        state.user.photoURL = action.payload;
+        localStorage.setItem(LS_USER_DATA, JSON.stringify(state.user));
+        },
+
+
+        updateEmailVerified: (state, action: PayloadAction<boolean | undefined>) => {
+        state.user.emailVerified = action.payload;
+        localStorage.setItem(LS_USER_DATA, JSON.stringify(state.user));
+        },
+
+        refetchDisplayName(state, action: PayloadAction<string>) {
+            const newDisplayName = action.payload;
+            const changedUser = { ...state.user, displayName: newDisplayName };
+            state.user = changedUser;
+            localStorage.setItem(LS_USER_DATA, JSON.stringify(changedUser));
+        },
+
         logoutSuccess(state) {
             state.isAuthenticated = false;
-            state.user = null;
+            state.user = {
+                email: null,
+                displayName: null,
+                emailVerified: null,
+                photoURL: null,
+                phoneNumber: null,
+            }
             localStorage.setItem(LS_AUTH_FLAG, JSON.stringify(state.isAuthenticated));
             localStorage.setItem(LS_USER_DATA, JSON.stringify(state.user));
         },

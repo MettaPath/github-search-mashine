@@ -41,7 +41,6 @@ export function Login() {
             setErrorMessage("Please verify your email before sign in.");
             return;
             }
-
             navigate('/');
             loginSuccess(userCredential);
             await dispatch(fetchFavorites());
@@ -73,10 +72,10 @@ export function Login() {
                 className="text-sm"
                 htmlFor="email"
             >
-            Email address
+                Email address
                 <input
                 required
-                className="border border-neutral-900 rounded py-1 px-1 w-full h-[25px] mb-2 focus:outline-none"
+                className="border border-neutral-900 rounded py-1 px-1 w-full h-[30px] text-lg md:text-sm mb-2 focus:outline-none"
                 type="email"
                 id="email"
                 value={email}
@@ -97,7 +96,7 @@ export function Login() {
                     </span>
                 <input
                 required
-                className="relative border border-neutral-900 rounded py-1 px-1 w-full h-[25px] mb-2 focus:outline-none"
+                className="relative border border-neutral-900 rounded py-1 px-1 w-full h-[30px] text-lg md:text-sm mb-2 focus:outline-none"
                 type="password"
                 id="password"
                 value={password}

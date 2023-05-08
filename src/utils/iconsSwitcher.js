@@ -4,7 +4,10 @@ import {
     TypeScript,
     Php,
     Python,
-    Css
+    Css,
+    Kotlin,
+    Vue,
+    Swift,
 } from "../components/Icons/"
 
 export const switchIcon = (lang) => {
@@ -13,15 +16,21 @@ export const switchIcon = (lang) => {
             return <JavaScript />;
         case 'HTML':
             return <Html />;
+        case 'CSS':
+            return <Css />;
         case 'TypeScript':
             return <TypeScript />;
         case 'PHP':
             return <Php />;
         case 'Python':
             return <Python />;
-        case 'CSS':
-            return <Css />;
+        case 'Kotlin':
+            return <Kotlin />;
+        case 'Vue':
+            return <Vue />;
+        case 'Swift':
+            return <Swift />;
         default:
             return `${lang ? lang : "Other"}`
     }
-}
+};
