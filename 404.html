@@ -6,7 +6,12 @@
   <title>Page Not Found</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
-    window.location.href = "/github-search-mashine/";
+    const previousPath = localStorage.getItem('previousPath');
+    const currentPath = window.location.pathname;
+    const newPath = currentPath.includes('/github-search-mashine/') ?
+      '/github-search-mashine/' + (previousPath || '') :
+      '/' + (previousPath || '');
+    window.location.href = newPath;
   </script>
 </head>
 
