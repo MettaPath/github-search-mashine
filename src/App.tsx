@@ -9,23 +9,21 @@ import { Login } from './components/Login';
 import { ResetPass } from './components/ResetPass';
 import { Profile } from './components/Profile';
 
-
-
 function App() {
-  return (
-    <>
-      <Navigation />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/signup" element={<RegistrationForm />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/resetpass" element={<ResetPass />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-      <Footer />
-    </>
-  );
+	return (
+		<>
+			<Navigation />
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="/signup" element={<RegistrationForm />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/favorites" element={<FavoritesPage />} />
+				<Route path="/resetpass" element={<ResetPass />} />
+				<Route path="/profile" element={<Profile />} />
+			</Routes>
+			<Footer />
+		</>
+	);
 }
 
 export default App;
