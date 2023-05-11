@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { FavoritesPage } from './pages/FavoritesPage';
 import { HomePage } from './pages/HomePage';
@@ -10,6 +10,23 @@ import { ResetPass } from './components/ResetPass';
 import { Profile } from './components/Profile';
 
 function App() {
+	const location = useLocation();
+	const [previousPath, setPreviousPath] = useState('');
+
+	useEffect(() => {
+		if (previousPath !== location.pathname) {
+			setPreviousPath(location.pathname);
+			localStorage.setItem('previousPath', location.pathname);
+		}
+	}, [location.pathname, previousPath]);
+
+	useEffect(() => {
+		const previousPath = localStorage.getItem('previousPath');
+		if (previousPath && previousPath !== '/') {
+			setPreviousPath(previousPath);
+		}
+	}, []);
+
 	return (
 		<>
 			<Navigation />
