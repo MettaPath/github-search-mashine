@@ -7,10 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
     const previousPath = localStorage.getItem('previousPath');
-    const currentPath = window.location.pathname;
-    const newPath = currentPath.includes('/github-search-mashine/') ?
-      '/github-search-mashine/' + (previousPath || '') :
-      '/' + (previousPath || '');
+    const newPath = previousPath ? `/github-search-mashine${previousPath}` : '/github-search-mashine/';
     window.location.href = newPath;
   </script>
 </head>
