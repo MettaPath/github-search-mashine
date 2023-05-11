@@ -51,6 +51,11 @@ export function HomePage() {
 		setDropdown(debounced.length > 2 && data?.length! > 0);
 	}, [debounced, data]);
 
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = e.target.value.replace(/\s/g, '');
+		setSearch(value);
+	};
+
 	const handleKeyPress = (event: { key: string }) => {
 		if (event.key === 'Enter') {
 			fetchUserRepos({ username: search, page: 1 });
@@ -125,7 +130,7 @@ export function HomePage() {
 						type="text"
 						placeholder="Search Github Username..."
 						value={search}
-						onChange={(e) => setSearch(e.target.value)}
+						onChange={(e) => handleInputChange(e)}
 						onKeyDown={handleKeyPress}
 					/>
 					<button
