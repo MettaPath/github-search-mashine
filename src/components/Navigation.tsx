@@ -32,7 +32,7 @@ export function Navigation() {
 	return (
 		<div className="w-screen h-[70px] shadow-md bg-gray-500 font-mono fixed z-30 mb-10">
 			<nav className="container text-sm mx-auto flex justify-between items-center h-[70px] px-5 text-white">
-				<div className="flex flex-row">
+				<div className="flex flex-row items-center justify-center">
 					<Link
 						to="/"
 						className="font-mono text-lg mr-2 hidden md:block"
