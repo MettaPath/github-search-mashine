@@ -13,6 +13,7 @@ export function Navigation() {
 	const isAuthenticated = useAppSelector(
 		(state) => state.auth.isAuthenticated
 	);
+	console.log(isAuthenticated);
 	const { displayName, email } = useAppSelector((state) => state.auth.user);
 	const navigate = useNavigate();
 
