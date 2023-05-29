@@ -11,8 +11,8 @@ import { RotatingLines } from 'react-loader-spinner';
 import { useAppSelector } from '../hooks/redux';
 import { Info } from '../components/Info';
 import { ScrollToTopButton } from '../components/ScrollToTopButton';
-import { useActions } from '../hooks/actions';
-import { auth } from '../services/fireBaseConfig';
+// import { useActions } from '../hooks/actions';
+// import { auth } from '../services/fireBaseConfig';
 import { Pagination } from '../components/Pagination';
 
 export function HomePage() {
@@ -24,9 +24,9 @@ export function HomePage() {
 	const isAuthenticated = useAppSelector(
 		(state) => state.auth.isAuthenticated
 	);
-	const { refetchDisplayName, updateAvatarSubscribe } = useActions();
-	const userDisplayName = auth.currentUser?.displayName;
-	const userAvatar = auth.currentUser?.photoURL;
+	// const { refetchDisplayName, updateAvatarSubscribe } = useActions();
+	// const userDisplayName = auth.currentUser?.displayName;
+	// const userAvatar = auth.currentUser?.photoURL;
 
 	const [fetchUserRepos, { isLoading: areReposloading, data: repos }] =
 		useLazyGetUserReposQuery();
@@ -67,15 +67,15 @@ export function HomePage() {
 		}
 	};
 
-	useEffect(() => {
-		if (userDisplayName) {
-			refetchDisplayName(userDisplayName);
-		}
-		if (userAvatar) {
-			updateAvatarSubscribe(userAvatar);
-		}
-		//   eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userDisplayName]);
+	// useEffect(() => {
+	// 	if (userDisplayName) {
+	// 		refetchDisplayName(userDisplayName);
+	// 	}
+	// 	if (userAvatar) {
+	// 		updateAvatarSubscribe(userAvatar);
+	// 	}
+	// 	//   eslint-disable-next-line react-hooks/exhaustive-deps
+	// }, [userDisplayName]);
 
 	// pagination
 	const loadMore = () => {
