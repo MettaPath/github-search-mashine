@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useActions } from '../hooks/actions';
 import { useAppSelector } from '../hooks/redux';
 import { switchIcon } from '../utils/iconsSwitcher';
@@ -22,6 +22,13 @@ export function FavoritesPage() {
 	const textAreaRefs = useRef<Array<React.RefObject<HTMLTextAreaElement>>>(
 		favorites.map(() => React.createRef())
 	);
+
+	useEffect(() => {
+		window.scrollTo({
+			top: 0,
+			behavior: 'auto',
+		});
+	});
 
 	useFirestoreSubscriptions();
 
