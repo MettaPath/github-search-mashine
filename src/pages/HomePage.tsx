@@ -43,7 +43,7 @@ export function HomePage() {
 		fetchUserReposCount(username);
 		setDropdown(false);
 		setSearch('');
-		setDebouncedSearchValue(search);
+		setDebouncedSearchValue(username);
 		setPage(1);
 	};
 
